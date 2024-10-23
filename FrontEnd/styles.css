@@ -1,0 +1,144 @@
+/* Estilos generales */
+body {
+    background-color: #f4f4f9; /* Fondo suave por defecto */
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    background-color: #ffffff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #004494;
+}
+
+.table {
+    margin-top: 20px;
+    background-color: #ffffff;
+}
+
+.table th {
+    background-color: #0056b3;
+    color: white;
+    text-align: center;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.table td {
+    text-align: center;
+    color: #333;
+}
+
+img {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-row .col-md-3 {
+    display: flex;
+    align-items: flex-end;
+}
+
+#toggle-dark-mode {
+    margin-bottom: 20px;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode h1,
+body.dark-mode h4 {
+    color: #ffffff;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .table {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode .table th {
+    background-color: #3a3a3a; /* Gris oscuro */
+    color: #e0e0e0; /* Gris claro */
+}
+
+body.dark-mode .table tr:nth-child(even) {
+    background-color: #2e2e2e;
+}
+
+body.dark-mode .table tr:nth-child(odd) {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode .table td {
+    color: #e0e0e0;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #003f7f;
+}
+/* Estilo de la barra superior */
+.top-bar {
+    background-color: transparent;
+}
+
+.top-bar img {
+    max-height: 50px;
+}
+
+#toggle-dark-mode {
+    margin: 0;
+    padding: 8px 12px;
+}
+
+body.dark-mode .top-bar {
+    background-color: transparent;
+}
+footer {
+    background-color: #f8f9fa;
+}
+
+body.dark-mode footer {
+    background-color: #2e2e2e;
+    color: #e0e0e0;
+}

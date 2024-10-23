@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Base Asignación - Sistema de Búsqueda</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css"> <!-- Archivo CSS personalizado -->
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="maxresdefault.jpg" alt="Montachem Logo" class="img-fluid mr-2" style="max-height: 65px;">
+            Montachem International INC
+        </a>
+        <button class="ml-auto btn btn-secondary" id="toggle-dark-mode">
+            <i class="fas fa-moon mr-2"></i> Dark Mode
+        </button>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="display-4">Base Asignación</h1>
+        </div>  
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Sistema de Búsqueda</h4>
+                <form id="searchForm">
+                    <div class="form-row align-items-end">
+                        <div class="col-md-5 mb-3">
+                            <label for="cliente">Cliente:</label>
+                            <input type="text" id="cliente" class="form-control" placeholder="Ingrese el nombre del cliente" oninput="obtenerSugerenciasClientes()" list="sugerenciasClientes">
+                            <datalist id="sugerenciasClientes"></datalist>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="material">Material:</label>
+                            <select id="material" class="form-control">
+                                <option value="">Seleccione un material...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button type="button" class="btn btn-primary btn-block" onclick="buscarMateriales()">Buscar</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Resultados de la Búsqueda</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tipo Cliente</th>
+                        <th>MI Range</th>
+                        <th>Density Range</th>
+                        <th>Gel</th>
+                        <th>Adds</th>
+                        <th>Tec Produccion Bimodal Monomodal</th>
+                        <th>Comonomero</th>
+                        <th>Supplier Pref</th>
+                        <th>Acepta Homologo</th>
+                        <th>Claims</th>
+                        <th>Obs Especiales</th>
+                    </tr>
+                </thead>
+                <tbody id="resultadosBusqueda">
+                    <tr>
+                        <td colspan="11">Ingrese un cliente y material para ver los resultados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Función para obtener sugerencias de clientes desde el backend
+async function obtenerSugerenciasClientes() {
+    const query = document.getElementById("cliente").value;
+    if (query.length < 3) return; // No buscar si la longitud del query es menor a 3 caracteres
+
+    try {
+        const response = await fetch(`http://localhost:3001/sugerencias-clientes?q=${query}`);
+        if (response.ok) {
+            const sugerencias = await response.json();
+            const dataList = document.getElementById("sugerenciasClientes");
+            dataList.innerHTML = ''; // Limpia las sugerencias previas
+
+            sugerencias.forEach(cliente => {
+                const option = document.createElement("option");
+                option.value = cliente;
+                dataList.appendChild(option);
+            });
+        } else {
+            console.error('Error al obtener sugerencias:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error al obtener sugerencias:', error.message);
+    }
+}
+
+        // Función para actualizar la lista de materiales cuando se selecciona un cliente
+        document.getElementById("cliente").addEventListener("change", async function () {
+            const cliente = this.value;
+            if (!cliente) return;
+
+            try {
+                const response = await fetch("http://localhost:3001/buscar-materiales", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ cliente }),
+                });
+
+                if (response.ok) {
+                    const resultados = await response.json();
+                    const materialSelect = document.getElementById("material");
+                    materialSelect.innerHTML = '<option value="">Seleccione un material...</option>';
+
+                    resultados.forEach(item => {
+                        const option = document.createElement("option");
+                        option.value = item.MATERIAL;
+                        option.textContent = item.MATERIAL;
+                        materialSelect.appendChild(option);
+                    });
+                } else {
+                    console.error('Error al actualizar materiales:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al actualizar materiales:', error.message);
+            }
+        });
+
+        // Función para buscar materiales específicos y actualizar la tabla con nuevas columnas
+        async function buscarMateriales() {
+            const cliente = document.getElementById("cliente").value;
+            const material = document.getElementById("material").value;
+
+            if (!cliente || !material) {
+                alert("Por favor seleccione un cliente y un material antes de buscar.");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:3001/buscar-material-especifico", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ cliente, material }),
+                });
+
+                if (response.ok) {
+                    const resultados = await response.json();
+                    const resultadosBusqueda = document.getElementById("resultadosBusqueda");
+                    resultadosBusqueda.innerHTML = '';
+
+                    resultados.forEach(item => {
+                        const row = document.createElement("tr");
+
+                        row.innerHTML = `
+                            <td>${item['Tipo Cliente'] || ''}</td>
+                            <td>${item['MI Range'] || ''}</td>
+                            <td>${item['Density Range'] || ''}</td>
+                            <td>${item['Gel'] || ''}</td>
+                            <td>${item['Adds'] || ''}</td>
+                            <td>${item['Tec Produccion Bimodal Monomodal'] || ''}</td>
+                            <td>${item['Comonomero'] || ''}</td>
+                            <td>${item['Supplier Pref'] || ''}</td>
+                            <td>${item['Acepta Homologo'] || ''}</td>
+                            <td>${item['Claims'] || ''}</td>
+                            <td>${item['Obs Especiales'] || ''}</td>
+                        `;
+
+                        resultadosBusqueda.appendChild(row);
+                    });
+                } else {
+                    throw new Error('Error al buscar los materiales');
+                }
+            } catch (error) {
+                alert("Ocurrió un error al buscar los materiales.");
+                console.error('Error al buscar materiales:', error.message);
+            }
+        }
+    </script>
+    <script>
+        const toggleButton = document.getElementById('toggle-dark-mode');
+        const body = document.body;
+    
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            toggleButton.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        });
+    </script>
+</body>
+<footer class="bg-light text-center py-3 mt-5">
+    <p class="mb-0">&copy; 2024 Montachem International. Todos los derechos reservados.</p>
+</footer>
+</html>
