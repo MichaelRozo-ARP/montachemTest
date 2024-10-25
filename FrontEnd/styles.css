@@ -3,11 +3,11 @@ body {
     background-color: #f4f4f9; /* Fondo suave por defecto */
     color: #333;
     transition: background-color 0.3s, color 0.3s;
+    font-family: 'Arial', sans-serif;
 }
 
 h1 {
-    font-family: 'Arial', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 20px;
     color: #333;
 }
@@ -50,17 +50,13 @@ h1 {
     text-align: center;
 }
 
-.table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.table tr:hover {
-    background-color: #e0e0e0;
-}
-
 .table td {
     text-align: center;
     color: #333;
+}
+
+.table-responsive {
+    overflow-x: auto; /* Habilita el desplazamiento horizontal en pantallas pequeñas */
 }
 
 img {
@@ -68,7 +64,7 @@ img {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-row .col-md-3 {
+.form-row .col-md-3, .form-row .col-md-4, .form-row .col-md-5 {
     display: flex;
     align-items: flex-end;
 }
@@ -117,6 +113,16 @@ body.dark-mode .table td {
 body.dark-mode .btn-primary {
     background-color: #003f7f;
 }
+
+footer {
+    background-color: #f8f9fa;
+}
+
+body.dark-mode footer {
+    background-color: #000000;
+    color: #000000;
+}
+
 /* Estilo de la barra superior */
 .top-bar {
     background-color: transparent;
@@ -134,11 +140,58 @@ body.dark-mode .btn-primary {
 body.dark-mode .top-bar {
     background-color: transparent;
 }
-footer {
-    background-color: #f8f9fa;
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 1.8rem;
+    }
+
+    .form-row .col-md-3, .form-row .col-md-4, .form-row .col-md-5 {
+        flex: 1 1 100%;
+    }
+
+    .form-row .col-md-3 button, .form-row .col-md-4 button, .form-row .col-md-5 button {
+        width: 100%;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .table {
+        font-size: 0.8rem;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
 }
 
-body.dark-mode footer {
-    background-color: #2e2e2e;
-    color: #e0e0e0;
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
 }

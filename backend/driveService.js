@@ -3,17 +3,29 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 const cron = require('node-cron');
+require('dotenv').config();
 
 // Ruta al archivo JSON de la cuenta de servicio
-const KEYFILEPATH = path.join(__dirname, 'sonorous-parsec-435501-a8-bd11bd300440.json');
-const SCOPES = ['https://www.googleapis.com/auth/drive'];
+const KEYFILEPATH = {
+    type: "service_account",
+    project_id: process.env.GOOGLE_PROJECT_ID,
+    private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    auth_uri: process.env.GOOGLE_AUTH_URI,
+    token_uri: process.env.GOOGLE_TOKEN_URI,
+    auth_provider_x509_cert_url: process.env.GOOGLE_AUTH_CERT_URL,
+    client_x509_cert_url: process.env.GOOGLE_AUTH_CERT_URL
+};
+const SCOPES = process.env.SCOPES;
 
 // Autenticación con Google usando la cuenta de servicio
 let auth;
 try {
     auth = new google.auth.GoogleAuth({
-        keyFile: KEYFILEPATH,
-        scopes: SCOPES,
+        credentials: KEYFILEPATH, // Pasar el objeto de credenciales
+        scopes: [SCOPES], // Ya está en forma de cadena
     });
 } catch (error) {
     console.error('Error al autenticar con Google:', error.message);

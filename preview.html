@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Base Asignación - Sistema de Búsqueda</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="FrontEnd/styles.css"> <!-- Archivo CSS personalizado -->
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Asignación - Sistema de Búsqueda</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="FrontEnd/styles.css"> <!-- Archivo CSS personalizado -->
+</head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="FrontEnd/maxresdefault.jpg" alt="Montachem Logo" class="img-fluid mr-2" style="max-height: 65px;">
+            <img src="FrontEnd/maxresdefault.jpg" alt="Montachem Logo" class="img-fluid mr-2" style="max-height: 50px;">
             Montachem International INC
         </a>
         <button class="ml-auto btn btn-secondary" id="toggle-dark-mode">
@@ -18,90 +18,99 @@
         </button>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container mt-4 mb-5">
         <div class="text-center">
             <h1 class="display-4">Base Asignación</h1>
-        </div>  
+        </div>
 
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Sistema de Búsqueda</h4>
                 <form id="searchForm">
-                    <div class="form-row align-items-end">
-                        <div class="col-md-5 mb-3">
+                    <div class="form-row">
+                        <div class="col-12 col-md-5 mb-3">
                             <label for="cliente">Cliente:</label>
                             <input type="text" id="cliente" class="form-control" placeholder="Ingrese el nombre del cliente" oninput="obtenerSugerenciasClientes()" list="sugerenciasClientes">
                             <datalist id="sugerenciasClientes"></datalist>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-12 col-md-4 mb-3">
                             <label for="material">Material:</label>
                             <select id="material" class="form-control">
                                 <option value="">Seleccione un material...</option>
                             </select>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-12 col-md-3 mb-3">
                             <button type="button" class="btn btn-primary btn-block" onclick="buscarMateriales()">Buscar</button>
                         </div>
                     </div>
-                    
                 </form>
             </div>
         </div>
 
         <div class="mt-4">
             <h4>Resultados de la Búsqueda</h4>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Tipo Cliente</th>
-                        <th>MI Range</th>
-                        <th>Density Range</th>
-                        <th>Gel</th>
-                        <th>Adds</th>
-                        <th>Tec Produccion Bimodal Monomodal</th>
-                        <th>Comonomero</th>
-                        <th>Supplier Pref</th>
-                        <th>Acepta Homologo</th>
-                        <th>Claims</th>
-                        <th>Obs Especiales</th>
-                    </tr>
-                </thead>
-                <tbody id="resultadosBusqueda">
-                    <tr>
-                        <td colspan="11">Ingrese un cliente y material para ver los resultados.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tipo Cliente</th>
+                            <th>MI Range</th>
+                            <th>Density Range</th>
+                            <th>Gel</th>
+                            <th>Adds</th>
+                            <th>Tec Produccion Bimodal Monomodal</th>
+                            <th>Comonomero</th>
+                            <th>Supplier Pref</th>
+                            <th>Acepta Homologo</th>
+                            <th>Claims</th>
+                            <th>Obs Especiales</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultadosBusqueda">
+                        <tr>
+                            <td colspan="11">Ingrese un cliente y material para ver los resultados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
+    <!-- Scripts del proyecto -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="FrontEnd/main.js"></script>
+
+    <!-- Script para obtener sugerencias de clientes -->
     <script>
-        // Función para obtener sugerencias de clientes desde el backend
-async function obtenerSugerenciasClientes() {
-    const query = document.getElementById("cliente").value;
-    if (query.length < 3) return; // No buscar si la longitud del query es menor a 3 caracteres
+        async function obtenerSugerenciasClientes() {
+            const query = document.getElementById("cliente").value;
+            if (query.length < 3) return;
 
-    try {
-        const response = await fetch(`http://localhost:3001/sugerencias-clientes?q=${query}`);
-        if (response.ok) {
-            const sugerencias = await response.json();
-            const dataList = document.getElementById("sugerenciasClientes");
-            dataList.innerHTML = ''; // Limpia las sugerencias previas
+            try {
+                const response = await fetch(`http://localhost:3001/sugerencias-clientes?q=${query}`);
+                if (response.ok) {
+                    const sugerencias = await response.json();
+                    const dataList = document.getElementById("sugerenciasClientes");
+                    dataList.innerHTML = '';
 
-            sugerencias.forEach(cliente => {
-                const option = document.createElement("option");
-                option.value = cliente;
-                dataList.appendChild(option);
-            });
-        } else {
-            console.error('Error al obtener sugerencias:', response.statusText);
+                    sugerencias.forEach(cliente => {
+                        const option = document.createElement("option");
+                        option.value = cliente;
+                        dataList.appendChild(option);
+                    });
+                } else {
+                    console.error('Error al obtener sugerencias:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al obtener sugerencias:', error.message);
+            }
         }
-    } catch (error) {
-        console.error('Error al obtener sugerencias:', error.message);
-    }
-}
+    </script>
 
-        // Función para actualizar la lista de materiales cuando se selecciona un cliente
+    <!-- Script para actualizar la lista de materiales -->
+    <script>
         document.getElementById("cliente").addEventListener("change", async function () {
             const cliente = this.value;
             if (!cliente) return;
@@ -133,8 +142,10 @@ async function obtenerSugerenciasClientes() {
                 console.error('Error al actualizar materiales:', error.message);
             }
         });
+    </script>
 
-        // Función para buscar materiales específicos y actualizar la tabla con nuevas columnas
+    <!-- Script para buscar materiales específicos -->
+    <script>
         async function buscarMateriales() {
             const cliente = document.getElementById("cliente").value;
             const material = document.getElementById("material").value;
@@ -186,10 +197,12 @@ async function obtenerSugerenciasClientes() {
             }
         }
     </script>
+
+    <!-- Función para alternar Dark Mode -->
     <script>
         const toggleButton = document.getElementById('toggle-dark-mode');
         const body = document.body;
-    
+
         toggleButton.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             toggleButton.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
