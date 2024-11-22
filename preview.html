@@ -60,12 +60,12 @@
                             <th>RANGO DENSIDAD</th>
                             <th>GEL</th>
                             <th>ADDS</th>
-                            <th>TEC PRODUCCION BIMODAL MONOMODAL</th>
+                            <th>PRODUCCION BIMODAL MONOMODAL</th>
                             <th>COMONOMERO</th>
                             <th>PROVEEDOR PREF</th>
                             <th>ACEPTA HOMOLOGO</th>
-                            <th>RECLAMOS</th>
-                            <th>RESTRICCIONES</th>
+                            <th>CLAIMS</th>
+                            <th>RESTRICCIONES/OBSERVACIONES</th>
                         </tr>
                     </thead>
                     <tbody id="resultadosBusqueda">
@@ -186,7 +186,7 @@
                             <td>${item['COMONOMERO'] || ''}</td>
                             <td>${item['PROVEEDOR PREF'] || ''}</td>
                             <td>${item['ACEPTA HOMOLOGO'] || ''}</td>
-                            <td>${item['RECLAMOS'] || ''}</td>
+                            <td><a href= "reclamos.html">${item['RECLAMOS'] || 'Ver Reclamos'}</a></td>
                             <td>${item['RESTRICCIONES'] || ''}</td>
                         `;
 

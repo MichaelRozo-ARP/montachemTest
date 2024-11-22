@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RECLAMOS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="FrontEnd/styles.css"> <!-- Archivo CSS personalizado -->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="FrontEnd/maxresdefault.jpg" alt="Montachem Logo" class="img-fluid mr-2" style="max-height: 50px;">
+            Montachem International INC
+        </a>
+        <button class="ml-auto btn btn-secondary" id="toggle-dark-mode">
+            <i class="fas fa-moon mr-2"></i> Dark Mode
+        </button>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="text-center">
+            <h1 class="display-4">Claims</h1>
+        </div>
+
+        
+
+        <div class="mt-4">
+            <h4>Resultados de la Búsqueda</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">                        
+                    </thead>
+                    <tbody id="resultadosBusqueda">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Cliente</th>
+                            <th>No Reclamo</th>
+                            <th>Material</th>
+                            <th>Fecha</th>
+                            <th>Cantidad (MT)</th>
+                            <th>Detalle Claim</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultadosBusqueda">
+                        <tr>
+                            <td>102847</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-001</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-01-15</td>
+                            <td>150</td>
+                            <td>Material endurecido antes de tiempo</td>
+                        </tr>
+                        <tr>
+                            <td>103956</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-002</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-01-20</td>
+                            <td>175</td>
+                            <td>Oxidación prematura</td>
+                        </tr>
+                        <tr>
+                            <td>101234</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-003</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-02-01</td>
+                            <td>120</td>
+                            <td>Defectos en dimensiones</td>
+                        </tr>
+                        <tr>
+                            <td>104567</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-004</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-02-15</td>
+                            <td>190</td>
+                            <td>Contaminación con residuos</td>
+                        </tr>
+                        <tr>
+                            <td>100789</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-005</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-03-01</td>
+                            <td>145</td>
+                            <td>Color no coincide con muestra</td>
+                        </tr>
+                        <tr>
+                            <td>104123</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-006</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-03-10</td>
+                            <td>165</td>
+                            <td>Grietas en material</td>
+                        </tr>
+                        <tr>
+                            <td>102345</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-007</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-03-15</td>
+                            <td>135</td>
+                            <td>Diferencias en tonalidad</td>
+                        </tr>
+                        <tr>
+                            <td>103678</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-008</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-03-20</td>
+                            <td>180</td>
+                            <td>Presencia de impurezas</td>
+                        </tr>
+                        <tr>
+                            <td>101890</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-009</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-03-25</td>
+                            <td>155</td>
+                            <td>Problemas en consistencia</td>
+                        </tr>
+                        <tr>
+                            <td>104901</td>
+                            <td>D S DA AMAZONIA INDUSTRIA E COMERCIO DE PLASTICOS LTDA</td>
+                            <td>REC-010</td>
+                            <td>HDPE-7000-MO</td>
+                            <td>2024-04-01</td>
+                            <td>170</td>
+                            <td>Baja resistencia</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts del proyecto -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="FrontEnd/main.js"></script>
+
+    <!-- Función para alternar Dark Mode -->
+    <script>
+        const toggleButton = document.getElementById('toggle-dark-mode');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            toggleButton.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        });
+    </script>
+</body>
+<footer class="bg-light text-center py-3 mt-5">
+    <p class="mb-0">&copy; 2024 Montachem International. Todos los derechos reservados.</p>
+</footer>
+</html>
