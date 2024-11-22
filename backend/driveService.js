@@ -80,6 +80,7 @@ async function descargarArchivoDeGoogleDrive(auth, fileId, destino) {
     }
 }*/
 // Función para procesar un archivo de Excel y devolver todo el JSON
+
 async function procesarArchivoExcel(rutaArchivo) {
   try {
       const workbook = XLSX.readFile(rutaArchivo);
@@ -97,17 +98,19 @@ async function procesarArchivoExcel(rutaArchivo) {
 function filtrarColumnas(jsonData) {
   // Filtra las columnas necesarias
   return jsonData.map(item => ({
-      'Tipo Cliente': item['Tipo Cliente'] || '',
-      'MI Range': item['MI Range'] || '',
-      'Density Range': item['Density Range'] || '',
-      'Gel': item['Gel'] || '',
-      'Adds': item['Adds'] || '',
-      'Tec Produccion Bimodal Monomodal': item['Tec Produccion Bimodal Monomodal'] || '',
-      'Comonomero': item['Comonomero'] || '',
-      'Supplier Pref': item['Supplier Pref'] || '',
-      'Acepta Homologo': item['Acepta Homologo'] || '',
-      'Claims': item['Claims'] || '',
-      'Obs Especiales': item['Obs Especiales'] || ''
+      'DESTINO': item['DESTINO'] || '',
+      'APLICACION-INDUSTRIA': item['APLICACION-INDUSTRIA'] || '',
+      'CATEGORIA CLIENTE': item['CATEGORIA CLIENTE'] || '',
+      'MI RANGO': item['MI RANGO'] || '',
+      'RANGO DENSIDAD': item['RANGO DENSIDAD'] || '',
+      'GEL': item['GEL'] || '',
+      'ADDS': item['ADDS'] || '',
+      'TEC PRODUCCION BIMODAL MONOMODAL': item['TEC PRODUCCION BIMODAL MONOMODAL'] || '',
+      'COMONOMERO': item['COMONOMERO'] || '',
+      'PROVEEDOR PREF': item['PROVEEDOR PREF'] || '',
+      'ACEPTA HOMOLOGO': item['ACEPTA HOMOLOGO'] || '',
+      'RECLAMOS': item['RECLAMOS'] || '',
+      'RESTRICCIONES': item['RESTRICCIONES'] || ''
   }));
 }
 // Función para actualizar el caché y devolver todo el JSON
@@ -150,7 +153,7 @@ async function obtenerSugerenciasClientes(query) {
 
   // Filtrar clientes con el término de búsqueda
   const sugerencias = cachedClientes
-      .map(cliente => cliente.CUSTOMER) // Asumiendo que 'CUSTOMER' es el campo correcto
+      .map(cliente => cliente.CLIENTE) // Asumiendo que 'CUSTOMER' es el campo correcto
       .filter(nombreCliente => nombreCliente && nombreCliente.toLowerCase().includes(query.toLowerCase()));
 
   // Elimina duplicados
@@ -168,7 +171,7 @@ async function obtenerMaterialesPorCliente(cliente) {
     }
 
     // Filtra los materiales basados en el cliente
-    return cachedClientes.filter(item => item.CUSTOMER === cliente);
+    return cachedClientes.filter(item => item.CLIENTE === cliente);
 }
 
 // Función para buscar materiales específicos
@@ -179,7 +182,7 @@ async function buscarMateriales(cliente, material) {
     }
 
     // Filtra los materiales basados en el cliente y el material
-    return cachedClientes.filter(item => item.CUSTOMER === cliente && item.MATERIAL === material);
+    return cachedClientes.filter(item => item.CLIENTE === cliente && item.MATERIAL === material);
 }
 
 // Programar la descarga automática una vez por semana

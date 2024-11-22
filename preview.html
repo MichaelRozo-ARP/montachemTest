@@ -53,17 +53,19 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Tipo Cliente</th>
-                            <th>MI Range</th>
-                            <th>Density Range</th>
-                            <th>Gel</th>
-                            <th>Adds</th>
-                            <th>Tec Produccion Bimodal Monomodal</th>
-                            <th>Comonomero</th>
-                            <th>Supplier Pref</th>
-                            <th>Acepta Homologo</th>
-                            <th>Claims</th>
-                            <th>Obs Especiales</th>
+                            <th>DESTINO</th>
+                            <th>APLICACION-INDUSTRIA</th>
+                            <th>CATEGORIA CLIENTE</th>
+                            <th>MI RANGO</th>
+                            <th>RANGO DENSIDAD</th>
+                            <th>GEL</th>
+                            <th>ADDS</th>
+                            <th>TEC PRODUCCION BIMODAL MONOMODAL</th>
+                            <th>COMONOMERO</th>
+                            <th>PROVEEDOR PREF</th>
+                            <th>ACEPTA HOMOLOGO</th>
+                            <th>RECLAMOS</th>
+                            <th>RESTRICCIONES</th>
                         </tr>
                     </thead>
                     <tbody id="resultadosBusqueda">
@@ -173,17 +175,19 @@
                         const row = document.createElement("tr");
 
                         row.innerHTML = `
-                            <td>${item['Tipo Cliente'] || ''}</td>
-                            <td>${item['MI Range'] || ''}</td>
-                            <td>${item['Density Range'] || ''}</td>
-                            <td>${item['Gel'] || ''}</td>
-                            <td>${item['Adds'] || ''}</td>
-                            <td>${item['Tec Produccion Bimodal Monomodal'] || ''}</td>
-                            <td>${item['Comonomero'] || ''}</td>
-                            <td>${item['Supplier Pref'] || ''}</td>
-                            <td>${item['Acepta Homologo'] || ''}</td>
-                            <td>${item['Claims'] || ''}</td>
-                            <td>${item['Obs Especiales'] || ''}</td>
+                            <td>${item['DESTINO'] || ''}</td>
+                            <td>${item['APLICACION-INDUSTRIA'] || ''}</td>
+                            <td>${item['CATEGORIA CLIENTE'] || ''}</td>
+                            <td>${item['MI RANGO'] || ''}</td>
+                            <td>${item['RANGO DENSIDAD'] || ''}</td>
+                            <td>${item['GEL'] || ''}</td>
+                            <td>${item['ADDS'] || ''}</td>
+                            <td>${item['TEC PRODUCCION BIMODAL MONOMODAL'] || ''}</td>
+                            <td>${item['COMONOMERO'] || ''}</td>
+                            <td>${item['PROVEEDOR PREF'] || ''}</td>
+                            <td>${item['ACEPTA HOMOLOGO'] || ''}</td>
+                            <td>${item['RECLAMOS'] || ''}</td>
+                            <td>${item['RESTRICCIONES'] || ''}</td>
                         `;
 
                         resultadosBusqueda.appendChild(row);
